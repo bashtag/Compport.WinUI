@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App3.Pages.ControlPages.Admin.AdminDevices"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3.Pages.ControlPages.Admin"
+    xmlns:view="using:App3.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:dxg="using:DevExpress.WinUI.Grid"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <view:ComputerModelViewModel x:Key="ViewModel"/>
+    </Page.Resources>
+
+    <ScrollView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+            Style="{StaticResource TitleTextBlockStyle}"
+            Grid.Row="0"
+            Text="Admin Bilgisayar Modelleri Yönetimi"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="20,20,0,0"/>
+
+            <Pivot Grid.Row="1" Margin="20,20,0,0">
+                <PivotItem Header="Bilgisayarlar">
+                    <Grid x:Name="DataGridArea">
+                        <dxg:GridControl
+                                x:Name="grid"
+                                AutoExpandAllGroups="True"
+                                AutoGenerateColumns="False"
+                                AutoWidth="False"
+                                ItemsSource="{Binding ComputerModels, Source={StaticResource ViewModel}}"
+                                NavigationStyle="Cell"
+                                ShowFixedTotalSummary="True"
+                                ShowGroupPanel="False"
+                                ShowGroupedColumns="False"
+                                ShowSearchPanelMode="Always">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridTextColumn FieldName="ModelNumber" Header="Model Numarası" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="BrandName" Header="Marka" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="ModelName" Header="Model" AllowEditing="false"/>
+                                <dxg:GridDateColumn FieldName="ReleaseDate" Header="Çıkış Tarihi" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="Description" Header="Açıklama" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="ProcessorDescription" Header="İşlemci" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="RamDescription" Header="RAM" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="StorageDescription" Header="Depolama" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="OperatingSystemDescription" Header="İşletim Sistemi" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="GraphicsCardDescription" Header="Grafik Kartı" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="DisplayDescription" Header="Ekran" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="BatteryDescription" Header="Batarya" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="WifiCardDescription" Header="WiFi Kartı" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="Weight" Header="Ağırlık (kg)" AllowEditing="false"/>
+                            </dxg:GridControl.Columns>
+                        </dxg:GridControl>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Bilgisayar Modeli Ekle">
+                    <StackPanel Margin="20">
+
+                        <!-- Product Identification -->
+                        <TextBlock Text="Ürün Kimliği" FontSize="18" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <ComboBox x:Name="BrandNameComboBox" Header="Marka Adı" PlaceholderText="Marka seç" MinWidth="200">
+                                <x:String>Apple</x:String>
+                                <x:String>Asus</x:String>
+                                <x:String>Hewlett-Packard</x:String>
+                                <x:String>Lenovo</x:String>
+                                <x:String>Dell</x:String>
+                                <x:String>Acer</x:String>
+                                <x:String>MSI</x:String>
+                                <x:String>Razer</x:String>
+                                <x:String>Samsung</x:String>
+                            </ComboBox>
+                            <TextBox x:Name="ModelNumberTextBox" Header="Model Numarası" MinWidth="200" PlaceholderText="Model numarası gir" Margin="10,0,0,0" Width="200"/>
+                            <TextBox x:Name="ModelNameTextBox" Header="Model Adı" Margin="10,0,0,0" MinWidth="200" PlaceholderText="Model adı gir"/>
+                        </StackPanel>
+
+                        <!--
+                        <DatePicker Margin="0,10,10,0" 
+                                    Header="Piyasaya Çıkış Tarihi" 
+                                    Language="tr-TR"
+                                    />
+                        -->
+
+                        <CalendarDatePicker Margin="0,10,10,0" 
+                                            Header="Piyasaya Çıkış Tarihi"
+                                            PlaceholderText="Tarih seç"
+                                            Language="tr-TR"
+                                            x:Name="ReleaseDateCalendarDatePicker"
+                                            />
+                        <!--
+                        <StackPanel>
+                            <TextBlock Text="Piyasaya Çıkış Tarihi" Margin="0,10"/>
+                            <TextBox x:Name="FormattedDateTextBox" IsReadOnly="True" PlaceholderText="GG-AA-YYYY" Margin="0,0,10,0"/>
+                            <CalendarDatePicker x:Name="MyCalendarDatePicker" Visibility="Collapsed" DateFormat="{}{day.integer}/{month.integer}/{year.full}" SelectedDateChanged="MyCalendarDatePicker_SelectedDateChanged"/>
+                            <Button Content="Tarih Seç" Click="Button_Click"/>
+                        </StackPanel>
+                        -->
+                        
+                        <!-- Hardware Specifications -->
+                        <TextBlock Text="Donanım Özellikleri" FontSize="18" Margin="0,20,10,0" FontWeight="SemiBold"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+
+                            <ComboBox x:Name="Processor" Header="İşlemci" MinWidth="150" PlaceholderText="İşlemci seç">
+                                <x:String>Intel Core i9</x:String>
+                                <x:String>Intel Core i7</x:String>
+                                <x:String>Intel Core i5</x:String>
+                                <x:String>Intel Core i3</x:String>
+                                <x:String>Ryzen R9</x:String>
+                                <x:String>Ryzen R7</x:String>
+                                <x:String>Ryzen R5</x:String>
+                                <x:String>Ryzen R3</x:String>
+                                <x:String>Apple M1 Chip</x:String>
+                                <x:String>Apple M2 Chip</x:String>
+                                <x:String>Apple M3 Chip</x:String>
+                            </ComboBox>
+                            <ComboBox x:Name="RAM" Margin="10,0,0,0" MinWidth="150" Header="RAM" PlaceholderText="RAM seç">
+                                <x:String>8GB</x:String>
+                                <x:String>16GB</x:String>
+                                <x:String>32GB</x:String>
+                                <x:String>64GB</x:String>
+                                <x:String>128GB</x:String>
+                            </ComboBox>
+                            <ComboBox x:Name="Storage" Margin="10,0,0,0" MinWidth="150" Header="Depolama" PlaceholderText="Depolama seç">
+                                <x:String>256GB</x:String>
+                                <x:String>512GB</x:String>
+                                <x:String>1TB</x:String>
+                                <x:String>2TB</x:String>
+                                <x:String>3TB</x:String>
+                                <x:String>4TB</x:String>
+                                <x:String>5TB</x:String>
+                            </ComboBox>
+                            <ComboBox x:Name="OperatingSystem" Margin="10,0,0,0" MinWidth="150" Header="OS Bilgisi" PlaceholderText="OS seç">
+                                <x:String>Windows 11</x:String>
+                                <x:String>MacOS</x:String>
+                                <x:String>Ubuntu</x:String>
+                            </ComboBox>
+                            <AutoSuggestBox
+                                x:Name="GraphicsCardAutoSuggestBox"
+                                Margin="10,0,0,0"
+                                MinWidth="300"
+                                Header="Grafik Kartı"
+                                PlaceholderText="Grafik kartı seç"
+                                QueryIcon="Find"
+                                TextChanged="GraphicsCardAutoSuggestBox_TextChanged"
+                                SuggestionChosen="GraphicsCardAutoSuggestBox_SuggestionChosen">
+                            </AutoSuggestBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <!-- Display -->
+                            <StackPanel Orientation="Horizontal" Margin="0,10" >
+                                <ComboBox x:Name="Display" Header="Ekran" MinWidth="150" PlaceholderText="Ekran seç">
+                                    <x:String>FullHD</x:String>
+                                    <x:String>2K</x:String>
+                                    <x:String>4K</x:String>
+                                </ComboBox>
+                                <ComboBox x:Name="RefreshRate" Header="Tazeleme hızı" MinWidth="150" Margin="10,0,0,0" PlaceholderText="Tazeleme hızı seç">
+                                    <x:String>60Hz</x:String>
+                                    <x:String>120Hz</x:String>
+                                    <x:String>144Hz</x:String>
+                                    <x:String>240Hz</x:String>
+                                </ComboBox>
+                                <ComboBox x:Name="PanelType" Header="Panel Tipi" MinWidth="150" Margin="10,0,0,0" PlaceholderText="Panel tipi seç">
+                                    <x:String>IPS</x:String>
+                                    <x:String>Mini LED</x:String>
+                                    <x:String>OLED</x:String>
+                                </ComboBox>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+
+                            <!-- Connectivity and Physical Attributes -->
+                            <ComboBox x:Name="WiFiCard" Header="WiFi Kartı" MinWidth="150" PlaceholderText="WiFi kartı seç">
+                                <x:String>MediaTek</x:String>
+                                <x:String>Intel</x:String>
+                                <x:String>RealTek</x:String>
+                            </ComboBox>
+
+                            <StackPanel Margin="20">
+                                <TextBlock Text="Batarya Kapasitesi"/>
+                                <Slider
+                                    Minimum="30"
+                                    Maximum="99"
+                                    MinWidth="100"
+                                    MaxWidth="300"
+                                    StepFrequency="5"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight"
+                                    ValueChanged="BatterySlider_ValueChanged"/>
+                                <TextBlock x:Name="BatteryValueText" Text="66Wh" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="20">
+                                <TextBlock Text="Ağırlık"/>
+                                <Slider
+                                    Minimum="0.5"
+                                    Maximum="3.5"
+                                    MinWidth="100"
+                                    MaxWidth="300"
+                                    StepFrequency="0.1"
+                                    TickFrequency="1"
+                                    TickPlacement="BottomRight"
+                                    ValueChanged="WeightSlider_ValueChanged"/>
+                                <TextBlock x:Name="WeightValueText" Text="0.9Kg" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Product Description -->
+                        <TextBlock Text="Ürün Açıklaması" FontSize="18" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox x:Name="DescriptionTextBox"
+                                 Margin="0,5,0,5"
+                                 PlaceholderText="Açıklama gir"
+                                 AcceptsReturn="True"
+                                 Height="70"
+                                 Width="600"
+                                 HorizontalAlignment="Left"/>
+
+                        <!--
+                        <TextBlock x:Name="DeviceSubmitErrorTextBlock"
+                                   Visibility="Collapsed"
+                                   Padding="10"
+                                   FontFamily="Arial"
+                                   FontStretch="UltraCondensed"
+                                   FontSize="16"
+                                   Foreground="PaleVioletRed"
+                                   FontStyle="Italic"
+                                   TextAlignment="Left" />
+                        -->
+                        <!-- Submit Button -->
+                        <Button Content="Bilgisayar Modeli Ekle"
+                                FontSize="16"
+                                MinWidth="300"
+                                Padding="15"
+                                Margin="0,15,100,0"
+                                HorizontalAlignment="Right"
+                                Click="SubmitButton_Click"
+                                />
+
+                    </StackPanel>
+
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </ScrollView>
+</Page>

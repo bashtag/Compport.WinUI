@@ -1,0 +1,24 @@
+<Window
+    x:Class="App3.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <!-- Title bar content -->
+        <Grid Row="0" x:Name="AppTitleBar" Height="32" VerticalAlignment="Top" Background="{x:Null}">
+            <!-- Your title bar elements -->
+            <TextBlock Text="Compport" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+            <!-- Add a back button if needed -->
+            <!-- Add more title bar content if needed -->
+        </Grid>
+
+        <Grid Row="1">
+            <Frame x:Name="MainFrame"/>
+        </Grid>
+    </Grid>
+
+</Window>

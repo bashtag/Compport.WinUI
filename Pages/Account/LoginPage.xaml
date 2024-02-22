@@ -1,0 +1,41 @@
+<Page
+    x:Class="App3.Pages.Account.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3.Pages.Account"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#1d366f">
+
+    <Grid>
+        <!-- Define columns for the grid -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <!-- Make both columns share the available space -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Center the logo in the first column -->
+        <Border Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image x:Name="logo" Source="../../Assets/compport_background.png" Width="900" Height="900"/>
+        </Border>
+
+        <!-- Center the login form in the second column -->
+        <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel x:Name="RootStackPanel" Width="400">
+                <!-- Specify a fixed width for the StackPanel to avoid stretching -->
+                <TextBox x:Name="EmailTextBox" PlaceholderText="e-posta" Margin="0,0,0,20" FontSize="20" Padding="15"/>
+                <PasswordBox x:Name="PasswordTextBox" PlaceholderText="şifre" Margin="0,0,0,20" FontSize="20" Padding="15"/>
+                <Button Content="Giriş Yap" Click="LoginButton_Click" FontSize="20" HorizontalAlignment="Center" Padding="15"/>
+                <TextBlock Visibility="Collapsed" x:Name="ErrorTextBlock" Padding="10" FontFamily="Arial" FontStretch="UltraCondensed" FontSize="16" Foreground="PaleVioletRed" FontStyle="Italic" TextAlignment="Center"/>
+
+                <!-- Additional part for registration -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <TextBlock Text="Hesabınız yoksa? " FontSize="16" VerticalAlignment="Center"/>
+                    <HyperlinkButton Content="Kayıt olun" Click="RegisterButton_Click" FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

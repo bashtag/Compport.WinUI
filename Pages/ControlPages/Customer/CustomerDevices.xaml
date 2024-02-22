@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App3.Pages.ControlPages.Customer.CustomerDevices"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3.Pages.ControlPages.Customer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxg="using:DevExpress.WinUI.Grid"
+    xmlns:view="using:App3.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <view:DeviceViewModel x:Key="ViewModel"/>
+    </Page.Resources>
+
+    <ScrollView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+                Style="{StaticResource TitleTextBlockStyle}"
+                Grid.Row="0"
+                Text="Cihazlarım"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="20,20,0,0"/>
+
+            <Pivot Grid.Row="1" Margin="20,20,0,0">
+                <PivotItem Header="Bilgisayarlar">
+                    <Grid x:Name="DataGridArea">
+                        <dxg:GridControl
+                            x:Name="grid"
+                            AutoExpandAllGroups="True"
+                            AutoGenerateColumns="False"
+                            AutoWidth="False"
+                            NavigationStyle="Cell"
+                            ShowFixedTotalSummary="True"
+                            ShowGroupPanel="False"
+                            ShowGroupedColumns="False"
+                            ShowSearchPanelMode="Always"
+                            ItemsSource="{Binding Devices, Source={StaticResource ViewModel}}">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridTextColumn FieldName="SerialNumber" Header="Seri Numarası" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="ModelNumber" Header="Model Numarası" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="BrandName" Header="Marka" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="ModelName" Header="Model" AllowEditing="false"/>
+                                <dxg:GridDateColumn FieldName="ReleaseDate" Header="Çıkış Tarihi" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="Description" Header="Açıklama" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="ProcessorDescription" Header="İşlemci" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="RamDescription" Header="RAM" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="StorageDescription" Header="Depolama" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="OperatingSystemDescription" Header="İşletim Sistemi" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="GraphicsCardDescription" Header="Grafik Kartı" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="DisplayDescription" Header="Ekran" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="BatteryDescription" Header="Batarya" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="WifiCardDescription" Header="WiFi Kartı" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="Weight" Header="Ağırlık (kg)" AllowEditing="false"/>
+                            </dxg:GridControl.Columns>
+                        </dxg:GridControl>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Bilgisayar Ekle">
+                    <StackPanel Margin="20" HorizontalAlignment="Left">
+                        <!-- Device Model AutoSuggestBox -->
+                        <AutoSuggestBox x:Name="ModelAutoSuggestBox"
+                            PlaceholderText="Model seçiniz"
+                            Header="Model Numarası"
+                            Width="200"
+                            TextChanged="ModelAutoSuggestBox_TextChanged" 
+                            SuggestionChosen="ModelAutoSuggestBox_SuggestionChosen"/>
+                        <TextBox x:Name="SerialNumberTextBox"
+                                 Header="Seri Numarası"
+                                 Margin="0,20,0,0"
+                                 Padding="15"
+                                 PlaceholderText="Seri numarası giriniz"
+                                 Width="200"/>
+
+                        <Button Content="Bilgisayar Modeli Ekle"
+                            FontSize="16"
+                            Padding="15"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Center"
+                            Click="SubmitButton_Click"
+                            />
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </ScrollView>
+</Page>

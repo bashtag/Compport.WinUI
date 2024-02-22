@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App3.Pages.ControlPages.Customer.CustomerComplaints"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3.Pages.ControlPages.Customer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:view="using:App3.ViewModels"
+    xmlns:dxg="using:DevExpress.WinUI.Grid"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <view:CustomerComplaintsViewModel x:Key="ViewModel"/>
+    </Page.Resources>
+    
+    <ScrollView>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+            Style="{StaticResource TitleTextBlockStyle}"
+            Grid.Row="0"
+            Text="Şikayetler"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="20,20,0,0"/>
+
+            <Pivot Grid.Row="1" Margin="20,20,0,0">
+                <PivotItem Header="Şikayetlerim">
+                    <Grid x:Name="DataGridArea">
+                        <dxg:GridControl
+                        x:Name="grid"
+                        AutoExpandAllGroups="True"
+                        AutoGenerateColumns="False"
+                        AutoWidth="False"
+                        NavigationStyle="Cell"
+                        ShowFixedTotalSummary="True"
+                        ShowGroupPanel="False"
+                        ShowGroupedColumns="False"
+                        ShowSearchPanelMode="Always"
+                        ItemsSource="{Binding Complaints, Source={StaticResource ViewModel}}">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridTextColumn FieldName="Description" Header="Açıklama" Width="250" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="DeviceModel" Header="Cihaz Modeli" Width="150" AllowEditing="false"/>
+                                <dxg:GridTextColumn FieldName="SerialNumber" Header="Seri Numarası" Width="150" AllowEditing="false"/>
+                                <dxg:GridDateColumn FieldName="ComplaintDate" Header="Şikayet Tarihi" Width="150" AllowEditing="false"/>
+                                <dxg:GridComboBoxColumn FieldName="ComplaintStatus" Header="Şikayet Durumu" Width="150" AllowEditing="false"/>
+                                <dxg:GridComboBoxColumn FieldName="CargoStatus" Header="Kargo Durumu" Width="150" AllowEditing="false"/>
+                            </dxg:GridControl.Columns>
+                        </dxg:GridControl>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Şikayet Oluştur">
+                    <StackPanel Margin="20">
+                        <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
+                            <StackPanel x:Name="InputForm" Padding="20" HorizontalAlignment="Center" Width="400">
+
+                                <!-- Device Section -->
+                                <TextBlock Text="Telefon Numarası" Margin="0,0,0,10"/>
+                                <ComboBox x:Name="DevicesComboBox"
+                                    Header="Select Your Device:"
+                                    DisplayMemberPath="SerialNumber"
+                                    PlaceholderText="Select a device"
+                                    SelectedValuePath="Id" />
+                                <TextBlock Visibility="Collapsed"
+                                       x:Name="DevicesErrorTextBlock"
+                                       Padding="10"
+                                       FontFamily="Arial"
+                                       FontStretch="UltraCondensed"
+                                       FontSize="16"
+                                       Foreground="PaleVioletRed"
+                                       FontStyle="Italic"
+                                       TextAlignment="Center"/>
+
+                                <!-- Description Section -->
+                                <TextBlock Text="Açıklama" Margin="0,0,0,10"/>
+                                <TextBox x:Name="DescriptionTextBox" PlaceholderText="Şikayet açıklaması" AcceptsReturn="True" Height="100" Margin="0,0,0,20"/>
+                                <TextBlock Visibility="Collapsed"
+                                x:Name="DescriptionErrorTextBlock"
+                                Padding="10"
+                                FontFamily="Arial"
+                                FontStretch="UltraCondensed"
+                                FontSize="16"
+                                Foreground="PaleVioletRed"
+                                FontStyle="Italic"
+                                TextAlignment="Center"/>
+
+                                    <!-- Submit Button -->
+                                <Button
+                                Content="Şikayet oluştur"
+                                HorizontalAlignment="Stretch"
+                                Click="SubmitComplaint_Click"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </ScrollView>
+</Page>
